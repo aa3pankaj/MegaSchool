@@ -1,0 +1,11 @@
+Student:
+
+studentdetails: profile/student/id
+all student list: profile/student
+all attendance list: attendance/studentid/
+specific date attendance: attendance/studentid/year/month/day
+
+parent:
+
+get all childs info: profile/parent/id/child
+

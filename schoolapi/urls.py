@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
 from rest_framework import routers
-from .views import StudentViewSet,ParentViewSet,ParentChildList
+from .views import StudentView,StudentDetailView,ParentDetailView,ParentView,ParentChildView,StudentAttendanceDetailView,StudentAttendanceView
 
 # router = routers.DefaultRouter()
 # router.register(r'student',StudentViewSet,'student')
@@ -28,7 +28,13 @@ from .views import StudentViewSet,ParentViewSet,ParentChildList
 #     url(r'^profile/', include(router.urls)),
 # ]
 urlpatterns = [
-    url(r'^profile/student/', StudentViewSet),
-url(r'^profile/parent/', ParentViewSet),
-url(r'^profile/parent/<int:username>/child/', ParentChildList),
+
+url(r'^profile/parent/$', ParentView.as_view(),name='parent'),
+url(r'^profile/student/(?P<user_id>\d+)/$', StudentDetailView.as_view(),name='studentinfo'),
+url(r'^profile/parent/(?P<user_id>\d+)/$', ParentDetailView.as_view(),name='parentinfo'),
+url(r'^profile/parent/(?P<user_id>\d+)/child/$', ParentChildView.as_view()),
+url(r'^attendence/(?P<user_id>\d+)/$', StudentAttendanceView.as_view()),
+url(r'^attendence/(?P<user_id>\d+)/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', StudentAttendanceDetailView.as_view()),
+url(r'^attendence/add/(?P<user_id>\d+)/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/(?P<value>[\w\-]+)/$', StudentAttendanceAddView.as_view()),
+
 ]
