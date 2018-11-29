@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Student,Parent,Attendance,Teacher,ClassRoom,Course,Subject,Exam,ExamResult,ExamType
+from .models import Student,Parent,Attendance,Teacher,\
+    ClassRoom,Course,Subject,Exam,ExamResult,ExamType,CustomUser
 # Register your models here.
-
+admin.site.register(CustomUser)
 admin.site.register(Student)
 admin.site.register(Parent)
 admin.site.register(Attendance)

@@ -1,6 +1,23 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser
+
+#from apisite import  settings
+from django.contrib.auth import get_user_model
+USER_TYPE_CHOICES = (
+        ('1', 'student'),
+        ('2', 'teacher'),
+        ('3','parent'),
+        ('4','schooladmin')
+    )
+class CustomUser(AbstractUser):
+    user_type=models.CharField(choices=USER_TYPE_CHOICES,max_length=10)
+    # is_student=models.BooleanField(default=False)
+    # is_parent = models.BooleanField(default=False)
+    # is_teacher = models.BooleanField(default=False)
+    # is_school_admin = models.BooleanField(default=False)
 
 class Parent (models.Model):
+    user = models.OneToOneField(get_user_model(),on_delete=models.CASCADE)
     fname = models.CharField(max_length=45)
     lname = models.CharField(max_length=45)
     dob = models.DateField(null=True, blank=True)
@@ -13,13 +30,14 @@ class Parent (models.Model):
         return self.fname + ' ' + self.lname
 
 class Student(models.Model):
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     fname = models.CharField(max_length=45)
     lname = models.CharField(max_length=45)
     dob = models.DateField(null=True, blank=True)
     #user_id=models.CharField(max_length=50)
     mobile=models.CharField(max_length=15,blank=True,null=True)
     email = models.EmailField(null=True, blank=True)
-    parent=models.ManyToManyField('Parent')
+    parent=models.ManyToManyField('Parent',default='')
     last_login_date = models.DateField(null=True, blank=True)
     last_login_ip = models.CharField(max_length=100, null=True, blank=True)
 
@@ -54,6 +72,7 @@ class Teacher(models.Model):
     #password = models.CharField(max_length=45)
     #reg_number = models.CharField(max_length=30)
     fname = models.CharField(max_length=45)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     lname = models.CharField(max_length=45)
     dob = models.DateField(null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=True)

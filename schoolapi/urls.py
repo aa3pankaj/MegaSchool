@@ -19,8 +19,8 @@ from django.urls import path
 from rest_framework import routers
 from .views import StudentView,StudentDetailView,ParentDetailView,\
     ParentView,ParentChildView,StudentAttendanceDetailView,\
-    StudentAttendanceView,StudentAttendanceCreateView,TeacherView,\
-    TeacherDetailView,ExamView,ExamDetailView,SubjectExamView
+    StudentAttendanceView,TeacherView,\
+    TeacherDetailView,ExamView,ExamDetailView,SubjectExamView,UserList
 # router = routers.DefaultRouter()
 # router.register(r'student',StudentViewSet,'student')
 # router.register(r'parent', ParentViewSet,'parent')
@@ -30,22 +30,21 @@ from .views import StudentView,StudentDetailView,ParentDetailView,\
 #     url(r'^profile/', include(router.urls)),
 # ]
 urlpatterns = [
-url(r'^profile/teacher/$',TeacherView.as_view(),name='teacher'),
-url(r'^profile/teacher/(?P<user_id>\d+)/$',TeacherDetailView.as_view(),name='teacher-info'),
+url(r'^profile/all/teacher/$',TeacherView.as_view(),name='teacher'),
+url(r'^profile/teacher/$',TeacherDetailView.as_view(),name='teacher-info'),
 
-url(r'^profile/student/$', StudentView.as_view(),name='student'),
-url(r'^profile/student/(?P<user_id>\d+)/$', StudentDetailView.as_view(),name='student-info'),
-url(r'^attendance/(?P<user_id>\d+)/$', StudentAttendanceView.as_view(),name='attendance'),
-url(r'^attendance/(?P<user_id>\d+)/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', StudentAttendanceDetailView.as_view()),
+url(r'^profile/all/student/$', StudentView.as_view(),name='student'),
+url(r'^profile/student/$', StudentDetailView.as_view(),name='student-info'),
+url(r'^attendance/$', StudentAttendanceView.as_view(),name='attendance'),
+url(r'^attendance/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', StudentAttendanceDetailView.as_view()),
 #url(r'^attendance/add/(?P<user_id>\d+)/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', StudentAttendanceCreateView.as_view()),
 url(r'^exam/$',ExamView.as_view(),name='exam'),
 url(r'^exam/(?P<pk>\d+)/$',ExamDetailView.as_view(),name='exam-info'),
 url(r'^exam/subject/(?P<pk>\d+)/$',SubjectExamView.as_view(),name='subject-exam'),
 
-
-url(r'^profile/parent/$', ParentView.as_view(),name='parent'),
-url(r'^profile/parent/(?P<user_id>\d+)/$', ParentDetailView.as_view(),name='parent-info'),
-url(r'^profile/parent/(?P<user_id>\d+)/child/$', ParentChildView.as_view(),name='parent-child'),
-
+url(r'^profile/all/parent/$', ParentView.as_view(),name='parent'),
+url(r'^profile/parent/$', ParentDetailView.as_view(),name='parent-info'),
+url(r'^profile/parent/child/$', ParentChildView.as_view(),name='parent-child'),
+url(r'^signup/$',UserList.as_view()),
 url(r'^api-auth/$', include('rest_auth.urls')),
 ]

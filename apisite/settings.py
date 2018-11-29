@@ -41,12 +41,12 @@ INSTALLED_APPS = [
     'schoolapi'
 ]
 
-REST_FRAMEWORK = {
-
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ]
-}
+# REST_FRAMEWORK = {
+#
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.AllowAny',
+#     ]
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,7 +77,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'apisite.wsgi.application'
-
+AUTH_USER_MODEL='schoolapi.CustomUser'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'apisite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'management',
+        'NAME': 'mega',
         'USER': 'root',
         'PASSWORD': 'pankaj',
         'HOST': 'localhost',
