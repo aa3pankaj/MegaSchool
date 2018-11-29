@@ -18,7 +18,6 @@ from django.conf.urls import url, include
 from django.urls import path
 from rest_framework import routers
 from .views import StudentView,StudentDetailView,ParentDetailView,ParentView,ParentChildView,StudentAttendanceDetailView,StudentAttendanceView
-
 # router = routers.DefaultRouter()
 # router.register(r'student',StudentViewSet,'student')
 # router.register(r'parent', ParentViewSet,'parent')
@@ -35,6 +34,6 @@ url(r'^profile/parent/(?P<user_id>\d+)/$', ParentDetailView.as_view(),name='pare
 url(r'^profile/parent/(?P<user_id>\d+)/child/$', ParentChildView.as_view()),
 url(r'^attendence/(?P<user_id>\d+)/$', StudentAttendanceView.as_view()),
 url(r'^attendence/(?P<user_id>\d+)/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', StudentAttendanceDetailView.as_view()),
-url(r'^attendence/add/(?P<user_id>\d+)/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/(?P<value>[\w\-]+)/$', StudentAttendanceAddView.as_view()),
+#url(r'^attendence/add/(?P<user_id>\d+)/$', StudentAttendanceCreateView.as_view()),
 
 ]

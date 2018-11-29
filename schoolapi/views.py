@@ -5,7 +5,8 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from .serializers import StudentSerializer, ParentSerializer,AttendanceSerializer
 from .models import Student,Parent,Attendance
-from rest_framework import generics
+from rest_framework import  generics
+from rest_framework.response import Response
 import datetime
 class StudentView(generics.ListAPIView):
     serializer_class = StudentSerializer
@@ -60,7 +61,18 @@ class StudentAttendanceView(generics.ListAPIView):
         student=Student.objects.get(id=user_id)
         return student.attendance_set.all()
 
-class StudentAttendanceAddView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = AttendanceSerializer
+
+# class StudentAttendanceCreateView(generics.ListCreateAPIView):
+#     queryset = Attendance.objects.all()
+#     serializer_class = AttendanceSerializer
+#
+#     def create(self, request, *args, **kwargs):
+#         write_serializer = AttendanceCreateSerializer(data=request.data)
+#         write_serializer.is_valid(raise_exception=True)
+#         instance = self.perform_create(write_serializer)
+#
+#         read_serializer = AttendanceSerializer(instance)
+#
+#         return Response(read_serializer.data)
 
 
