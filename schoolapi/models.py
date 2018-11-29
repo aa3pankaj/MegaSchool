@@ -4,20 +4,21 @@ class Parent (models.Model):
     fname = models.CharField(max_length=45)
     lname = models.CharField(max_length=45)
     dob = models.DateField(null=True, blank=True)
-    email = models.CharField(max_length=45, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
     #user_id=models.CharField(max_length=50)
     mobile=models.CharField(max_length=20,blank=True,null=True)
     last_login_date = models.DateField(null=True, blank=True)
     last_login_ip = models.CharField(max_length=100, null=True, blank=True)
     def __str__(self):
         return self.fname + ' ' + self.lname
+
 class Student(models.Model):
     fname = models.CharField(max_length=45)
     lname = models.CharField(max_length=45)
     dob = models.DateField(null=True, blank=True)
     #user_id=models.CharField(max_length=50)
     mobile=models.CharField(max_length=15,blank=True,null=True)
-    email = models.CharField(max_length=45, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
     parent=models.ManyToManyField('Parent')
     last_login_date = models.DateField(null=True, blank=True)
     last_login_ip = models.CharField(max_length=100, null=True, blank=True)
@@ -56,7 +57,7 @@ class Teacher(models.Model):
     lname = models.CharField(max_length=45)
     dob = models.DateField(null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=True)
-    email = models.CharField(max_length=45, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
     mobile = models.CharField(max_length=20, null=True, blank=True)
     date_of_join = models.DateField(null=True, blank=True)
     #status = models.BooleanField()
@@ -78,7 +79,7 @@ class Subject(models.Model):
     def __str__(self):
         return self.name
 class ClassRoom(models.Model):
-    student = models.ForeignKey(Student,on_delete=models.CASCADE)
+    student = models.ManyToManyField(Student)
     year =models.CharField(max_length=10)
     section=models.CharField(max_length=10)
     #status=models.BooleanField(default=True)
@@ -96,10 +97,12 @@ class ExamType(models.Model):
     desc = models.CharField(max_length=45,blank=True)
     def __str__(self):
         return self.name
+
 class Exam(models.Model):
     name=models.CharField(max_length=45)
     start_date=models.DateField()
     exam_type=models.ForeignKey(ExamType,on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE,default=1)
     def __str__(self):
         return self.name
 
@@ -107,4 +110,4 @@ class ExamResult(models.Model):
     marks=models.CharField(max_length=45)
     exam=models.ForeignKey(Exam,on_delete=models.CASCADE)
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject,on_delete=models.CASCADE)
+
