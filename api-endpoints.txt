@@ -1,31 +1,32 @@
 ######################### API Endpoints #############################################
 
-POST: custom Signup: /api/signup/
-POST: login rest_auth : /api/rest-auth/login/
-POST: custom login: /api/login/
+POST: custom Signup: /signup/
+POST: login rest_auth : /rest-auth/login/
+POST: custom login: /login/
 ####################################################################################
 Student: 
 
-GET: ALl students list: /api/profile/all/student/
-GET: logged in student details: /api/profile/student/
-GET: all attendance of students: /api/attendance/
-GET: specific date attendance of logged in student: /api/attendance/year/month/day
-GET: All Exams List: /api/exam/$
-GET: Specific Exam by id: /api/exam/exam_id/
-GET: All Exams of particular subject: exam/subject/subject_id/
+GET/POST: All students list: /profile/all/student/
+GET: logged in student details: /profile/student/
+GET: all attendance of students: /attendance/
+GET: specific date attendance of logged in student: /attendance/year/month/day
+GET/POST: All Exams List: /exam/
+GET: Specific Exam by id: /exam/exam_id/
+GET: All Exams of particular subject: /exam/subject/subject_id/
 
 #####################################################################################
 Parent:
 
-GET: All parent profile: /api/profile/all/parent/
-GET: Logged in Parent profile: /api/profile/parent/$
-GET: logged in parent childs: /api/profile/parent/child/
-POST: Add Attendance of specific student for a particular day: /api/attendance/student_id/year/month/day/
+GET/POST: All parent profile: /profile/all/parent/
+GET: Logged in Parent profile: /profile/parent/$
+GET: logged in parent childs: /profile/parent/child/
+
 
 #####################################################################################
 Teacher:
 
-GET: all teacher listview: /api/profile/all/teacher
-GET: loggedin teacher profile: /api/profile/teacher/
+GET/POST: all teacher listview: /profile/all/teacher
+GET: loggedin teacher profile: /profile/teacher/
+POST: Add Attendance of specific student for a particular day: /attendance/student_id/year/month/day/
 
 
