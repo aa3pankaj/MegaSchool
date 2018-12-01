@@ -7,23 +7,49 @@ from .serializers import StudentSerializer, ParentSerializer,\
     AttendanceSerializer,AttendanceCreateSerializer,\
     TeacherSerializer,ExamSerializer,UserSerializer
 from .models import Student,Parent,Attendance,Teacher,Exam,Subject,CustomUser
-from rest_framework import  generics,status
+from rest_framework import  generics,status,views
 from rest_framework.response import Response
 from django.http import HttpResponse
 import datetime
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django.contrib.auth import authenticate,logout,login
+from rest_framework.permissions import AllowAny
+from django.http import HttpResponseRedirect
 
+class LoginView(views.APIView):
+    permission_classes = (AllowAny,)
+    authentication_classes = ()
+    #serializer_class = UserSerializer
+    def post(self, request, format=None):
+        data = request.data
 
-class UserList(generics.ListCreateAPIView):
-    queryset = CustomUser.objects.all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+        username = data.get('username', None)
+        password = data.get('password', None)
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                #return HttpResponseRedirect('/profile/student/')
+                return Response(status=status.HTTP_200_OK)
+                #return HttpResponse("You're logged in.")
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+class UserList(views.APIView):
+    #queryset = CustomUser.objects.all()
+    permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
     def post(self, request, format=None):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+            #return HttpResponseRedirect('/profile/student/')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class StudentView(generics.ListAPIView):

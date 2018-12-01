@@ -20,7 +20,7 @@ from rest_framework import routers
 from .views import StudentView,StudentDetailView,ParentDetailView,\
     ParentView,ParentChildView,StudentAttendanceDetailView,\
     StudentAttendanceView,TeacherView,\
-    TeacherDetailView,ExamView,ExamDetailView,SubjectExamView,UserList
+    TeacherDetailView,ExamView,ExamDetailView,SubjectExamView,UserList,LoginView
 # router = routers.DefaultRouter()
 # router.register(r'student',StudentViewSet,'student')
 # router.register(r'parent', ParentViewSet,'parent')
@@ -37,7 +37,7 @@ url(r'^profile/all/student/$', StudentView.as_view(),name='student'),
 url(r'^profile/student/$', StudentDetailView.as_view(),name='student-info'),
 url(r'^attendance/$', StudentAttendanceView.as_view(),name='attendance'),
 url(r'^attendance/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', StudentAttendanceDetailView.as_view()),
-#url(r'^attendance/add/(?P<user_id>\d+)/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', StudentAttendanceCreateView.as_view()),
+#url(r'^attendance/add/(?P<user_id>\d+)/(r'^rest-auth/registration/', include('rest_auth.registration.urls')?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', StudentAttendanceCreateView.as_view()),
 url(r'^exam/$',ExamView.as_view(),name='exam'),
 url(r'^exam/(?P<pk>\d+)/$',ExamDetailView.as_view(),name='exam-info'),
 url(r'^exam/subject/(?P<pk>\d+)/$',SubjectExamView.as_view(),name='subject-exam'),
@@ -46,5 +46,7 @@ url(r'^profile/all/parent/$', ParentView.as_view(),name='parent'),
 url(r'^profile/parent/$', ParentDetailView.as_view(),name='parent-info'),
 url(r'^profile/parent/child/$', ParentChildView.as_view(),name='parent-child'),
 url(r'^signup/$',UserList.as_view()),
-url(r'^api-auth/$', include('rest_auth.urls')),
+    url(r'^login/$',LoginView.as_view()),
+    url(r'^rest-auth/', include('rest_auth.urls')),
+   # url(r'^rest-auth/registration/', include('rest_auth.registration.urls'))
 ]

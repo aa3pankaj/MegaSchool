@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 
 
 urlpatterns = [
-    url(r'', include('schoolapi.urls')),
+    url(r'api/', include('schoolapi.urls')),
     url('admin/', admin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+   # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

@@ -1,12 +1,31 @@
+######################### API Endpoints #############################################
 
-Student:
+POST: custom Signup: /api/signup/
+POST: login rest_auth : /api/rest-auth/login/
+POST: custom login: /api/login/
+####################################################################################
+Student: 
 
-studentdetails: profile/student/id
-all student list: profile/student
-all attendance list: attendance/studentid/
-specific date attendance: attendance/studentid/year/month/day
+GET: ALl students list: /api/profile/all/student/
+GET: logged in student details: /api/profile/student/
+GET: all attendance of students: /api/attendance/
+GET: specific date attendance of logged in student: /api/attendance/year/month/day
+GET: All Exams List: /api/exam/$
+GET: Specific Exam by id: /api/exam/exam_id/
+GET: All Exams of particular subject: exam/subject/subject_id/
 
-parent:
+#####################################################################################
+Parent:
 
-get all childs info: profile/parent/id/child
+GET: All parent profile: /api/profile/all/parent/
+GET: Logged in Parent profile: /api/profile/parent/$
+GET: logged in parent childs: /api/profile/parent/child/
+POST: Add Attendance of specific student for a particular day: /api/attendance/student_id/year/month/day/
+
+#####################################################################################
+Teacher:
+
+GET: all teacher listview: /api/profile/all/teacher
+GET: loggedin teacher profile: /api/profile/teacher/
+
 

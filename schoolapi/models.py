@@ -4,10 +4,10 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 #from apisite import  settings
 from django.contrib.auth import get_user_model
 USER_TYPE_CHOICES = (
-        ('1', 'student'),
-        ('2', 'teacher'),
-        ('3','parent'),
-        ('4','schooladmin')
+        ('student', 'student'),
+        ('teacher', 'teacher'),
+        ('parent','parent'),
+        ('schooladmin','schooladmin')
     )
 class CustomUser(AbstractUser):
     user_type=models.CharField(choices=USER_TYPE_CHOICES,max_length=10)
@@ -88,13 +88,20 @@ class Teacher(models.Model):
 
 class Course(models.Model):
     name=models.CharField(max_length=45)
-    desc = models.CharField(max_length=45)
+    desc = models.CharField(max_length=45,blank=True,null=True)
+
+    def __str__(self):
+        return self.name
+class Department(models.Model):
+    name=models.CharField(max_length=45)
+    desc=models.CharField(max_length=45,blank=True,null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, default=1)
     def __str__(self):
         return self.name
 class Subject(models.Model):
     name = models.CharField(max_length=45)
-    desc = models.CharField(max_length=45)
-    course=models.ForeignKey(Course,on_delete=models.CASCADE)
+    desc = models.CharField(max_length=45,blank=True,null=True)
+    department=models.ForeignKey(Department,on_delete=models.CASCADE,default=1)
     def __str__(self):
         return self.name
 class ClassRoom(models.Model):

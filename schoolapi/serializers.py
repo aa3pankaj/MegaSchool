@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 
 from django.contrib.auth import get_user_model
 
-
+from django.contrib.auth import authenticate,logout,login
 class UserSerializer(serializers.ModelSerializer):
     #profile = StudentSerializer(required=True)
     class Meta:
@@ -30,9 +30,10 @@ class UserSerializer(serializers.ModelSerializer):
         my_group = Group.objects.get(name='student')
         my_group.user_set.add(user)
 
-
+        # user = authenticate(username=validated_data['username'], password=validated_data['password'])
+        # login(self.request, user)
         # create profile
-        if user_type=='1':
+        if user_type=='student':
 
             studentGroup = Group.objects.get(name='student')
             studentGroup.user_set.add(user)
@@ -40,16 +41,16 @@ class UserSerializer(serializers.ModelSerializer):
             #parent_id=validated_data['parent_id']
             #parent=Parent.objects.get(parent_id)
             student = Student.objects.create(user=user,fname = validated_data['first_name'],
-                                             lname = validated_data['last_name'],
+                                             lname = validated_data['last_name'],email= validated_data['email'],
             )
-        elif user_type=='2':
+        elif user_type=='teacher':
             teacherGroup = Group.objects.get(name='teacher')
             teacherGroup.user_set.add(user)
 
             parent = Teacher.objects.create(user=user, fname=validated_data['first_name'],
                                            lname=validated_data['last_name'],
                                            )
-        elif user_type=='3':
+        elif user_type=='parent':
             parentGroup = Group.objects.get(name='parent')
             parentGroup.user_set.add(user)
 
